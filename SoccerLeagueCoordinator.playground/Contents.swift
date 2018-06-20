@@ -9,6 +9,7 @@
 
 // Declares an index variable for iteration through the experienced and inexperienced players arrays
 var index : Int = 0
+var count : Int = 0
 
 // Declares variables that store each teams average height
 var dragonsAverageHeight : Double = 0.00
@@ -37,6 +38,9 @@ var inexperiencedPlayers = [[String : Any]]()
 
 // Creates an array to store the personal letters
 var letters : Array<String> = []
+
+// Creates an array and stores the three teams
+var teams = [teamDragons, teamSharks, teamRaptors]
 
 // Assign dictonary keys to variables
 let name : String = "name"
@@ -97,22 +101,28 @@ func allocatePlayersByExperience() -> Void {
 
 // This function divides the experienced and inexperienced players evenly to each team
 func buildTeams() -> Void {
-    while index < experiencedPlayers.count {
-        teamDragons.append(experiencedPlayers[index])
-        teamSharks.append(experiencedPlayers[index + 1])
-        teamRaptors.append(experiencedPlayers[index + 2])
-        index += 3
+    for count in 0..<experiencedPlayers.count {
+        let skilledTeammate = experiencedPlayers[count]
+        
+        if count % teams.count == 0 {
+            teamSharks.append(skilledTeammate)
+        } else if count % teams.count == 1 {
+            teamDragons.append(skilledTeammate)
+        } else {
+            teamRaptors.append(skilledTeammate)
+        }
     }
-
-    // Reset index to 0
-    index = 0
-
-    // Divide the inexperienced players evenly to each team
-    while index < experiencedPlayers.count {
-        teamDragons.append(inexperiencedPlayers[index])
-        teamSharks.append(inexperiencedPlayers[index + 1])
-        teamRaptors.append(inexperiencedPlayers[index + 2])
-        index += 3
+    
+    for count in 0..<inexperiencedPlayers.count {
+        let unskilledTeammate = inexperiencedPlayers[count]
+        
+        if count % teams.count == 0 {
+            teamSharks.append(unskilledTeammate)
+        } else if count % teams.count == 1 {
+            teamDragons.append(unskilledTeammate)
+        } else {
+            teamRaptors.append(unskilledTeammate)
+        }
     }
 }
 
